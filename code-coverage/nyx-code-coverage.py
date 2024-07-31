@@ -130,7 +130,7 @@ def main():
             # and we can just truncate the bitmap back to the right length.
             bitmap = bitmap[:len(pointers)]
         else:
-            LOG.error("ERROR: Length mismatch: len(pointers) != len(bitmap)")
+            LOG.error(f"ERROR: Length mismatch: len(pointers) != len(bitmap): {len(pointers)} != {len(bitmap)}")
             sys.exit(1)
 
     line_clusters = read_line_clusters(args.line_clusters)
