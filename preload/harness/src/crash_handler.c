@@ -102,7 +102,6 @@ int sigaction(int signum, const struct sigaction* act,
 
 void handle_asan(void) {
   char* log_file_path = NULL;
-  char* log_content = NULL;
 
   if (!nyx_firefox_is_parent) {
     while (1) {
@@ -115,9 +114,17 @@ void handle_asan(void) {
   FILE* f = fopen(log_file_path, "r");
 
   if (f) {
-    log_content = malloc(LOG_CONTENT_SIZE);
-    memset(log_content, 0x00, LOG_CONTENT_SIZE);
-    fread(log_content, LOG_CONTENT_SIZE - 1, 1, f);
+    if (log_content) {
+      // A previous handler might haft left a diagnostic message in the log
+      // already that we shouldn't overwrite.
+      size_t log_content_size = strlen(log_content);
+      fread(log_content + log_content_size,
+            LOG_CONTENT_SIZE - log_content_size - 1, 1, f);
+    } else {
+      log_content = malloc(LOG_CONTENT_SIZE);
+      memset(log_content, 0x00, LOG_CONTENT_SIZE);
+      fread(log_content, LOG_CONTENT_SIZE - 1, 1, f);
+    }
     fclose(f);
 
     if (nyx_firefox_is_parent) {
