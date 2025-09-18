@@ -10,6 +10,7 @@ void nyx_init_start(void);
 uint32_t internal_get_owned_raw_fuzz_data(void** data);
 uint32_t internal_get_next_fuzz_data(void* data, uint32_t len);
 uint32_t internal_get_raw_fuzz_data(void* data, uint32_t len);
+uint32_t internal_get_protobuf_fuzz_data(void* data, uint32_t len, uint32_t msg_type)
 
 // Implemented in firefox_hooks.c
 __attribute__((noreturn)) void firefox_handler_MOZ_CRASH(const char* aFilename,

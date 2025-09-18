@@ -81,6 +81,13 @@ uint32_t internal_get_raw_fuzz_data(void* data, uint32_t len) {
   return retlen;
 }
 
+uint32_t internal_get_protobuf_fuzz_data(void* data, uint32_t len) {
+// TODO
+  uint32_t retlen = 0;
+
+  return retlen;
+}
+
 uint32_t internal_get_next_fuzz_data(void* data, uint32_t len) {
   static uint8_t* payload_pos = NULL;
 

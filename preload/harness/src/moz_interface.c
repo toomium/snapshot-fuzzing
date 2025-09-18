@@ -105,6 +105,10 @@ uint32_t nyx_get_next_fuzz_data(void* data, uint32_t len) {
   return internal_get_next_fuzz_data(data, len);
 }
 
+uint32_t nyx_get_protobuf_fuzz_data(void* data, uint32_t len, uint32_t msg_type) {
+  return internal_get_protobuf_fuzz_data(data, len, msg_type);
+}
+
 void nyx_release(uint32_t iterations) {
   on_iteration(iterations);
   kAFL_hypercall(HYPERCALL_KAFL_RELEASE, 0);
